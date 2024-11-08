@@ -9,6 +9,7 @@ set cursorline
 set ttimeoutlen=10
 set tabstop=4
 set re=0
+set signcolumn=yes
 
 filetype plugin on
 
@@ -48,6 +49,7 @@ call plug#begin('~/.vim/bundle')
 
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
+    Plug 'fisadev/FixedTaskList.vim'
 
     Plug 'editorconfig/editorconfig-vim'
 
@@ -69,14 +71,26 @@ colorscheme sublimemonokai
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree | if argc() > 0 || exists('s:std_in') | wincmd p | endif
 
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <silent> <leader>n :NERDTreeFocus<CR>
+nnoremap <silent> <C-n> :NERDTree<CR>
+nnoremap <silent> <C-t> :NERDTreeToggle<CR>
+nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
-nnoremap <F9> :ALEFix<CR>
+nnoremap <silent> <F9> :ALEFix<CR>
+nnoremap <silent> <F10> :TaskList<CR>
+nnoremap <silent> <C-p> :Files<CR>
 
-nnoremap <C-p> :Files<CR>
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 nnoremap <silent> gd <Plug>(coc-definition)
 nnoremap <silent> gy <Plug>(coc-type-definition)
