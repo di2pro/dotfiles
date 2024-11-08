@@ -59,11 +59,7 @@ call plug#begin('~/.vim/bundle')
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
 
-	Plug 'neoclide/coc.nvim', { 'for': [
-        \'javascript', 'typescript', 'javascriptreact', 'typescriptreact'
-        \'python', 'rust', 'c', 'cpp',
-        \'json', 'yaml', 'sh'
-    \], 'branch': 'release' }
+	Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 colorscheme sublimemonokai
