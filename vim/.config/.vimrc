@@ -60,6 +60,7 @@ call plug#begin('~/.vim/bundle')
 	Plug 'junegunn/fzf.vim'
 
 	Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+    Plug 'luckasRanarison/tailwind-tools.nvim'
 call plug#end()
 
 colorscheme sublimemonokai
